@@ -9,7 +9,11 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import { deleteProduct } from "../api/product";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getListProducts } from "../api/product";
 
@@ -134,6 +138,12 @@ export const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem]);
 
+  const logout = () => {
+    localStorage.removeItem("isAuth");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <>
       <Table
@@ -162,6 +172,15 @@ export const Home = () => {
           <Typography>Do you want to delete this book ?</Typography>
         </Modal>
       )}
+      <Button
+        icon={<LogoutOutlined />}
+        type="primary"
+        style={{ position: "fixed", right: "1rem", bottom: "1rem" }}
+        onClick={logout}
+        danger
+      >
+        Logout
+      </Button>
     </>
   );
 };
